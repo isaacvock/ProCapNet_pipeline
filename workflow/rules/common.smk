@@ -100,9 +100,31 @@ def get_fq(wildcards):
             raise ValueError(f"Expected one or two fastq file paths, but got: {fqs}")
 
 
+### Get bam files that will be used to make bedgraphs (i.e., have unique information about TSS location)
+def get_informative_bam(wildcards):
+    s = samples.loc[wildcards.sample]
+
+    method = s["method"]
+
+    if(len(method) > 1):
+        ValueError("sample_names in samples CSV must be unique!")
+
+    if method == "procap" or method == "rampage":
+        return expand(
+            "results/filter/{sample}_informative.bam",
+            sample = wildcards.sample
+        )
+    else:
+        return expand(
+            "results/filter/{sample}.bam",
+            sample = wildcards.sample
+        )
+
+
+
 ### Get final output
 def get_final_output():
     # What?
     # 1) bam files for CAGE-seq and DNase-seq data
     # 2) Informative bam files for PRO-cap and RAMPAGE
-    # 3) Bigwigs, but only for non-DNase-seq data
+    # 3) +/- Bigwigs, but only for non-DNase-seq data

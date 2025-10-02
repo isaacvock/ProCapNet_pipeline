@@ -1,0 +1,18 @@
+# Path or URL to sample sheet (CSV format)
+# columns should be:
+# 1) sample_name: Name to assign to each sample
+# 2) fq1: Path to read 1
+# 3) fq2: Path to read 2; blank if single-end
+# 4) sra: SRA accession code if downloaded; keep empty if not
+# 5) PE: True if SRA downloaded data will be paired-end, False otherwise.
+#       Can leave blank if sra is blank
+# 6) method: procap, cage, or rampage currently supported
+# 7) replicate_group: Alphanumeric ID for group of replicates
+#       Replicates will be merged
+samples: config/samples.csv
+
+
+
+trim_reads: True
+trimmer: "cutadapt"
+
